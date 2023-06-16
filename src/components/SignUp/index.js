@@ -1,50 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
+
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Name is required here"),
+      email: Yup.string().email("Invalid email address").required("Email is required here"),
+      password: Yup.string().required("Password is required here"),
+    }),
+    onSubmit: (values) => {
+      // Storing the user data in local storage
+      localStorage.setItem("userData", JSON.stringify(values));
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+      formik.resetForm();
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
-
-
-
-    // Storing the user data in local storage
-    const userData = { name, email, password };
-    localStorage.setItem("userData", JSON.stringify(userData));
-
-    
-    setName("");
-    setEmail("");
-    setPassword("");
-
-    navigate("/cart");
-  };
+      navigate("/cart");
+    },
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-     <div className="max-w-md w-full space-y-8 mt-[-30%]">
+      <div className="max-w-md w-full space-y-8 mt-[-30%]">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign Up
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSignUp}>
+        <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="name" className="sr-only">
@@ -58,9 +50,13 @@ const SignUp = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Name"
-                value={name}
-                onChange={handleNameChange}
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.name && formik.errors.name && (
+                <div className="text-red-500">{formik.errors.name}</div>
+              )}
             </div>
             <div>
               <label htmlFor="email" className="sr-only">
@@ -74,9 +70,13 @@ const SignUp = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
-                value={email}
-                onChange={handleEmailChange}
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.email && formik.errors.email && (
+                <div className="text-red-500">{formik.errors.email}</div>
+              )}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -90,9 +90,13 @@ const SignUp = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.password && formik.errors.password && (
+                <div className="text-red-500">{formik.errors.password}</div>
+              )}
             </div>
           </div>
           <div>

@@ -27,7 +27,7 @@ const Header = () => {
   
   return (
     <>
-      <header className="text-gray-600 body-font shadow-lg">
+      <header className="text-gray-600 body-font shadow-lg sticky top-0 z-50 bg-white">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link
             to={"/"}

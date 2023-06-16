@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { exportComponentAsJPEG } from 'react-component-export-image';
+import ReactImageMagnify from 'react-image-magnify';
 
 
+
+  
 const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [product, setProduct] = useState({})
   const [cartCount, setCartCount] = useState(0);
   console.log(id, 'id', product)
+  const imageRef = useRef(null);
 
   useEffect(() => {
     const storedCartCount = localStorage.getItem('cartCount');
@@ -71,6 +76,35 @@ const Product = () => {
     }
       
   }
+  
+  // const handleExportImage = () => {
+  //   exportComponentAsJPEG(imageRef)
+  //     .then(() => {
+  //       toast.success('Image exported successfully!', {
+  //         position: 'top-center',
+  //         autoClose: 500,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: false,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: 'dark',
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       toast.error('Failed to export image.', {
+  //         position: 'top-center',
+  //         autoClose: 500,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: false,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: 'dark',
+  //       });
+  //       console.error(error);
+  //     });
+  // };
 
   if(!Object.keys(product).length > 0) return <div>Loading.....</div>
   
@@ -78,8 +112,32 @@ const Product = () => {
     
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <img alt={product?.title} className="lg:w-1/2 w-full lg:h-auto max-h-[600px] h-64 object-contain object-center rounded" src={product?.image}/>
+        <div className="lg:w-5/5 mx-auto flex flex-wrap">
+          {/* <img alt={product?.title} className="lg:w-1/2 w-full lg:h-auto max-h-[600px] h-64 object-contain object-center rounded" src={product?.image}/> */}
+          {/* <img
+            ref={imageRef}
+            alt={product?.title}
+            className="lg:w-1/2 w-full lg:h-auto max-h-[600px] h-64 object-contain object-center rounded"
+            src={product?.image}
+             /> */}
+             <ReactImageMagnify
+                 {...{
+                  smallImage: {
+                    ref:{imageRef},
+                    alt: product?.title,
+                    isFluidWidth: true,
+                    src: product?.image,
+                    className: 'lg:w-1/2 w-full lg:h-auto max-h-[600px] h-48 object-contain object-center rounded',
+                  },
+                  largeImage: {
+                    src: product?.image,
+                    width: 1200,
+                    height: 1800,
+                  },
+                  enlargedImageClassName: 'rounded',
+                }}
+              />
+
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest uppercase">{product?.category}</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title}</h1>
@@ -121,6 +179,9 @@ const Product = () => {
                 </span>
               </div>
               <p className="leading-relaxed">{product?.description}</p>
+              {/* <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded mr-2" onClick={handleExportImage}>
+                      Export as Image
+                    </button> */}
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
                   <span className="mr-3">Color</span>
@@ -165,4 +226,4 @@ const Product = () => {
   )
 }
 
-export default Product 
+export default Product
