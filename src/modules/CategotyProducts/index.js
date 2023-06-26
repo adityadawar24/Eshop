@@ -15,7 +15,7 @@ const CategoryProducts = () => {
     fetchProducts()
   }, [])
 
-  if (products.length === 0) return <div>Loading.....</div>
+  if (products.length === 0) return <div><h2>Loading.....</h2></div>
 
   return (
     <ProductCard products={products} />

@@ -21,7 +21,7 @@ export default function Footer() {
             defaultZoom={mapOptions.zoom}
           ></GoogleMapReact>
         </div>
-        <div className="bg-blue-200">
+        <div className="bg-white-200">
           <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
             <p className="text-black-500 text-sm text-center sm:text-left">
               © 2023 Eshop —

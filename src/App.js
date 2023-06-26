@@ -7,6 +7,8 @@ import Product from "./modules/Product";
 import Cart from "./modules/Cart";
 import SignUp from "./components/SignUp";
 import { Scrollbars } from 'react-custom-scrollbars';
+import Payment from "./modules/Payment/Payment";
+
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
           <Route path="/products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
           <Route path="SignUp" element={<SignUp />} />
+          <Route path="payment" element={<Payment/>} />
           <Route path="*" element={<div>404 found</div>} />
         </Routes>
       

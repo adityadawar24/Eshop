@@ -4,17 +4,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
+
+
 const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const carts = JSON.parse(localStorage.getItem("cart")) || [];
   const [promoCode1, setPromoCode1] = useState(false);
   const [promoCode2, setPromoCode2] = useState(false);
+  
+
+ 
+
 
   
 
   const handleSignUp = () => {
-    navigate("/signup");
+    navigate(`/payment`);
   };
 
 
@@ -23,6 +29,7 @@ const Cart = () => {
       return acc + item.price * item.quantity;
     }, 0);
     setTotal(total);
+    
   }, [carts]);
 
   const handleIncrement = (id) => {
@@ -95,6 +102,7 @@ const Cart = () => {
   }
 
   const totalCost = total + 10 - (promoCode1 ? 60 : 0) - (promoCode2 ? 25 : 0);
+  localStorage.setItem("totalCost", totalCost); 
 
   return (
     <div className="container mx-auto mt-10">
@@ -118,6 +126,7 @@ const Cart = () => {
               Total
             </h3>
           </div>
+        
           {carts?.map((cart) => {
             return (
               <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
@@ -237,6 +246,8 @@ const Cart = () => {
         >
           Checkout
         </button>
+        <br/>
+        <Link to ="/payment" ><button style={{marginTop:"5px" }} className="flex ml-auto text-white bg-indigo-500 border-0 py-13 px-20 focus:outline-none hover:bg-indigo-600 rounded mr-10">PayNow</button></Link>
           </div>
         </div>
       </div>

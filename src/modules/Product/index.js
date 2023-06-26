@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { exportComponentAsJPEG } from 'react-component-export-image';
 import ReactImageMagnify from 'react-image-magnify';
-
+import './prod.css';
 
 
   
@@ -106,7 +106,7 @@ const Product = () => {
   //     });
   // };
 
-  if(!Object.keys(product).length > 0) return <div>Loading.....</div>
+  if(!Object.keys(product).length > 0) return <h1 className='load'>Loading.....</h1>
   
   return (
     
