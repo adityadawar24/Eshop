@@ -4,9 +4,14 @@ import "./Payment.css";
 const PaymentForm = () => {
   const [paymentData, setPaymentData] = useState(null);
   const totalCost = localStorage.getItem("totalCost") || 0;
-const totalAmount = Math.max(totalCost * 100, 100);
+const totalAmount = Math.max(totalCost*10*10, 100);
+
+
 
   const initializeRazorpay = () => {
+    
+    console.log("Total Amount:", totalAmount);
+
     const options = {
       key: 'rzp_test_JBWq6pii9P7QlV',
       amount: totalAmount,               //Card Number: 4111 1111 1111 1111
