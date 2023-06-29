@@ -101,7 +101,7 @@ const Cart = () => {
     );
   }
 
-  const totalCost = total + 10 - (promoCode1 ? 60 : 0) - (promoCode2 ? 25 : 0);
+  const totalCost = total + 10 - (promoCode1 ? 10 : 0) - (promoCode2 ? 25 : 0);
   localStorage.setItem("totalCost", totalCost); 
 
   return (
