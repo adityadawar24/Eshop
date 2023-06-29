@@ -101,7 +101,7 @@ const Cart = () => {
     );
   }
 
-  const totalCost = total + 10 - (promoCode1 ? 10 : 0) - (promoCode2 ? 25 : 0);
+  const totalCost = total + 10 - (promoCode1 ? 40 : 0) - (promoCode2 ? 25 : 0);
   localStorage.setItem("totalCost", totalCost); 
 
   return (
@@ -247,7 +247,7 @@ const Cart = () => {
           Checkout
         </button>
         <br/>
-        <Link to ="/payment" ><button style={{marginTop:"5px" }} className="flex ml-auto text-white bg-indigo-500 border-0 py-13 px-20 focus:outline-none hover:bg-indigo-600 rounded mr-10">PayNow</button></Link>
+        <Link to ="/payment" ><button style={{marginTop:"5px" , marginLeft:"2px" }} className="flex ml-auto text-white bg-indigo-500 border-0 py-13 px-7 focus:outline-none hover:bg-indigo-600 rounded mr-10">PayNow</button></Link>
           </div>
         </div>
       </div>

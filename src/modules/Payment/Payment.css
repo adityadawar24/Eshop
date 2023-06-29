@@ -12,7 +12,13 @@
     background-size: cover;
   }
   
+  .dem {
+    border: 1px solid black;
+  padding: 2px;
+  margin-right: 1200px;
+
   
+  }
 
   .receipt{
     background-color: #f0f0f0;
